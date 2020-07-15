@@ -38,7 +38,7 @@ const { ETH_TOKEN } = require("../utils/utilities.js");
 const TestManager = require("../utils/test-manager");
 
 // Constants
-const DECIMALS = 18; // number of decimal for TOKEN_A, TOKEN_B contracts
+const DECIMALS = 18; // number of decimal for TOKEN_A and TOKEN_B contracts
 const TOKEN_A_RATE = parseEther("0.06");
 const TOKEN_B_RATE = parseEther("0.03");
 
