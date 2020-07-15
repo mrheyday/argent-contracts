@@ -127,8 +127,8 @@ contract TokenExchanger is OnlyOwnerModule {
      * @param _srcToken The address of the source token.
      * @param _destToken The address of the destination token.
      * @param _maxSrcAmount The maximum amount of source tokens to use for the trade.
-     * @param _destAmount The exact amount of destination tokens to buy.
      * @param _expectedSrcAmount The expected amount of source tokens (used only in ParaSwap's Bought event).
+     * @param _destAmount The exact amount of destination tokens to buy.
      * @param _routes Set of weighted ParaSwap routes. Each route specifies an exchange to use to convert a given (maximum) amount of a given
      * source token into a given (exact) amount of a given destination token.
      * @param _mintPrice gasPrice (in wei) at the time the gas tokens were minted by ParaSwap. 0 means gas token will not be used by ParaSwap
@@ -138,8 +138,8 @@ contract TokenExchanger is OnlyOwnerModule {
         address _srcToken,
         address _destToken,
         uint256 _maxSrcAmount,
-        uint256 _destAmount,
         uint256 _expectedSrcAmount,
+        uint256 _destAmount,
         IAugustusSwapper.BuyRoute[] calldata _routes,
         uint256 _mintPrice
     )

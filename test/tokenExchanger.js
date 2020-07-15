@@ -221,27 +221,31 @@ describe("Token Exchanger", function () {
   }
 
   function getParams({
-    method, fromToken, toToken, fixedAmount, variableAmount, expectedDestAmount = "123", _wallet = wallet,
+    method, fromToken, toToken, fixedAmount, variableAmount, expectedAmount = "123", _wallet = wallet,
   }) {
     let routes;
     let srcAmount;
     let destAmount;
+    let amountParams;
     if (method === "sell") {
       srcAmount = fixedAmount;
       destAmount = variableAmount;
       routes = buildPathes({
         fromToken, toToken, srcAmount, destAmount,
       });
+      amountParams = [srcAmount, destAmount, expectedAmount].map((a) => a.toString());
     } else if (method === "buy") {
       srcAmount = variableAmount;
       destAmount = fixedAmount;
       routes = buildRoutes({
         fromToken, toToken, srcAmount, destAmount,
       });
+      amountParams = [srcAmount, expectedAmount, destAmount].map((a) => a.toString());
     } else {
       throw new Error("Unsupported method:", method);
     }
-    const params = [_wallet.contractAddress, fromToken, toToken, srcAmount.toString(), destAmount.toString(), expectedDestAmount, routes, 0];
+
+    const params = [_wallet.contractAddress, fromToken, toToken, ...amountParams, routes, 0];
     return params;
   }
 
