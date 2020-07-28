@@ -66,7 +66,7 @@ describe("VersionManager", function () {
 
     const proxy = await deployer.deploy(Proxy, {}, walletImplementation.contractAddress);
     wallet = deployer.wrapDeployedContract(BaseWallet, proxy.contractAddress);
-    await wallet.init(owner.address, [versionManager.contractAddress]);
+    await wallet.init(owner, [versionManager.contractAddress]);
     await versionManager.from(owner).upgradeWallet(wallet.contractAddress, await versionManager.lastVersion());
   });
 
@@ -99,7 +99,7 @@ describe("VersionManager", function () {
   describe("Wallet owner", () => {
     it("should not let the relayer call a forbidden method", async () => {
       await assert.revertWith(
-        manager.relay(versionManager, "setOwner", [wallet.contractAddress, owner.address], wallet, [owner]),
+        manager.relay(versionManager, "setOwner", [wallet.contractAddress, owner], wallet, [owner]),
         "VM: unknown method",
       );
     });
