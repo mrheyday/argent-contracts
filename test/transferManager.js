@@ -25,7 +25,8 @@ const ERC20 = artifacts.require("TestERC20");
 const WETH = artifacts.require("WETH9");
 const TestContract = artifacts.require("TestContract");
 
-const { ETH_TOKEN, hasEvent } = require("../utils/utilities.js");
+const utils = require("../utils/utilities.js");
+const { ETH_TOKEN } = require("../utils/utilities.js");
 
 const ETH_LIMIT = 1000000;
 const SECURITY_PERIOD = 2;
@@ -36,8 +37,8 @@ const ACTION_TRANSFER = 0;
 
 const TestManager = require("../utils/test-manager");
 
-describe("TransferManager", function () {
-  this.timeout(100000);
+contract("TransferManager", function (accounts) {
+  this.timeout(10000);
 
   const manager = new TestManager();
 
