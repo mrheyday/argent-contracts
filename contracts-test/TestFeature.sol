@@ -24,8 +24,7 @@ contract TestFeature is BaseFeature {
         bool _boolVal,
         uint _uintVal
     ) 
-        BaseFeature(_lockStorage, _versionManager, NAME) 
-        public 
+        BaseFeature(_lockStorage, _versionManager, NAME)
     {
         boolVal = _boolVal;
         uintVal = _uintVal;
