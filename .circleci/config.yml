@@ -38,9 +38,6 @@ jobs:
       - <<: *step_restore_cache
       - <<: *step_setup_global_packages
       - run:
-          name: "Lint Solidity contracts"
-          command: npm run lint:contracts
-      - run:
           name: "Testing deployment scripts and benchmark gas costs"
           command: npm run ganache >/dev/null 2>&1 & npm run test:deployment && npm run test:benchmark
       - run:
