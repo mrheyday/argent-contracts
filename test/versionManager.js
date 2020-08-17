@@ -10,12 +10,12 @@ const VersionManager = require("../build/VersionManager");
 const Registry = require("../build/ModuleRegistry");
 const TestFeature = require("../build/TestFeature");
 
-const TestManager = require("../utils/test-manager");
+const RelayManager = require("../utils/relay-manager");
 
 describe("VersionManager", function () {
   this.timeout(100000);
 
-  const manager = new TestManager(accounts);
+  const manager = new RelayManager(accounts);
 
   const owner = accounts[1].signer;
 
