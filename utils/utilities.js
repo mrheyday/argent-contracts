@@ -1,7 +1,5 @@
 const readline = require("readline");
 const ethers = require("ethers");
-const web3 = require("web3");
-const { assert } = require("chai");
 
 const ETH_TOKEN = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
 
@@ -160,8 +158,8 @@ module.exports = {
   async increaseTime(seconds) {
     const networkId = await web3.eth.net.getId();
     console.log("networkId", networkId);
-    // TODO
-    if (networkId === "ganache") {
+
+    if (networkId === "1597649375983") {
       await web3.currentProvider.send("evm_increaseTime", seconds);
       await web3.currentProvider.send("evm_mine");
     } else {
@@ -171,14 +169,13 @@ module.exports = {
   },
 
   async getNonceForRelay() {
-    const block = await web3.eth.getBlockNumber()();
+    const block = await web3.eth.getBlockNumber();
     const timestamp = new Date().getTime();
     return `0x${ethers.utils.hexZeroPad(ethers.utils.hexlify(block), 16)
       .slice(2)}${ethers.utils.hexZeroPad(ethers.utils.hexlify(timestamp), 16).slice(2)}`;
   },
 
   async assertRevert(promise, revertMessage) {
-    let receipt;
     let reason;
     try {
       await promise;
@@ -187,5 +184,10 @@ module.exports = {
       ({ reason } = err);
       assert.equal(reason, revertMessage);
     }
+  },
+
+  async getAccount(index) {
+    const accounts = await web3.eth.getAccounts();
+    return accounts[index];
   }
 };
