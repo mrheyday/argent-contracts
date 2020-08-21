@@ -405,7 +405,7 @@ describe("TransferManager", function () {
         await doDirectTransfer({ token: ETH_TOKEN, to: recipient, amount: 10000 });
       });
 
-      it("should let the owner send ETH (relayed)", async () => {
+      it.only("should let the owner send ETH (relayed)", async () => {
         await doDirectTransfer({
           token: ETH_TOKEN, to: recipient, amount: 10000, relayed: true,
         });
@@ -415,7 +415,7 @@ describe("TransferManager", function () {
         await doDirectTransfer({ token: erc20, to: recipient, amount: 10 });
       });
 
-      it("should let the owner send ERC20 (relayed)", async () => {
+      it.only("should let the owner send ERC20 (relayed)", async () => {
         await doDirectTransfer({
           token: erc20, to: recipient, amount: 10, relayed: true,
         });
@@ -457,7 +457,7 @@ describe("TransferManager", function () {
         });
       });
 
-      it("should create and execute a pending ETH transfer (relayed)", async () => {
+      it.only("should create and execute a pending ETH transfer (relayed)", async () => {
         await doPendingTransfer({
           token: ETH_TOKEN, to: recipient, amount: ETH_LIMIT * 2, delay: 3, relayed: true,
         });
@@ -469,7 +469,7 @@ describe("TransferManager", function () {
         });
       });
 
-      it("should create and execute a pending ERC20 transfer (relayed)", async () => {
+      it.only("should create and execute a pending ERC20 transfer (relayed)", async () => {
         await doPendingTransfer({
           token: erc20, to: recipient, amount: ETH_LIMIT * 2, delay: 3, relayed: true,
         });
