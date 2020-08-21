@@ -43,6 +43,7 @@ class TestManager {
       gasLimit: ethers.BigNumber.from(20700000),
     };
     const deployerInstance = new etherlime.EtherlimeGanacheDeployer(this.accounts[0].secretKey);
+
     deployerInstance.setDefaultOverrides(defaultConfigs);
     return deployerInstance;
   }
@@ -70,10 +71,10 @@ class TestManager {
 
   async relay(_module, _method, _params, _wallet, _signers,
     _relayer = this.accounts[9].signer,
-    _estimate = false,
+    _estimate = false, // eslint-disable-line no-unused-vars
     _gasLimit = 2000000,
     _nonce,
-    _gasPrice = 0,
+    _gasPrice = 1,
     _refundToken = ETH_TOKEN,
     _refundAddress = ethers.constants.AddressZero,
     _gasLimitRelay = (_gasLimit * 1.1)) {
@@ -91,21 +92,21 @@ class TestManager {
       _refundToken,
       _refundAddress,
     );
-    if (_estimate === true) {
-      const gasUsed = await this.relayerModule.estimate.execute(
-        _wallet.contractAddress,
-        _module.contractAddress,
-        methodData,
-        nonce,
-        signatures,
-        _gasPrice,
-        _gasLimit,
-        _refundToken,
-        _refundAddress,
-        { gasLimit: _gasLimitRelay, gasPrice: _gasPrice },
-      );
-      return gasUsed;
-    }
+    // if (_estimate === true) {
+    const gasEstimate = await this.relayerModule.estimate.execute(
+      _wallet.contractAddress,
+      _module.contractAddress,
+      methodData,
+      nonce,
+      signatures,
+      _gasPrice,
+      _gasLimit,
+      _refundToken,
+      _refundAddress,
+      { gasPrice: _gasPrice },
+    );
+    //  return gasUsed;
+    // }
     const tx = await this.relayerModule.from(_relayer).execute(
       _wallet.contractAddress,
       _module.contractAddress,
@@ -119,6 +120,10 @@ class TestManager {
       { gasLimit: _gasLimitRelay, gasPrice: _gasPrice },
     );
     const txReceipt = await _module.verboseWaitForTransaction(tx);
+
+    console.log("method", _method);
+    console.log("gasEstimate", gasEstimate.toString());
+    console.log("gasUsed    ", txReceipt.gasUsed.toString());
     return txReceipt;
   }
 
