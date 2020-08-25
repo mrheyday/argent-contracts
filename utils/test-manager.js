@@ -72,12 +72,11 @@ class TestManager {
   async relay(_module, _method, _params, _wallet, _signers,
     _relayer = this.accounts[9].signer,
     _estimate = false, // eslint-disable-line no-unused-vars
-    _gasLimit = 2000000,
+    _gasLimit = 1,
     _nonce,
     _gasPrice = 1,
     _refundToken = ETH_TOKEN,
-    _refundAddress = ethers.constants.AddressZero,
-    _gasLimitRelay = (_gasLimit * 1.1)) {
+    _refundAddress = ethers.constants.AddressZero) {
     const nonce = _nonce || await this.getNonceForRelay();
     const methodData = _module.contract.interface.functions[_method].encode(_params);
     const signatures = await signOffchain(
@@ -88,7 +87,7 @@ class TestManager {
       methodData,
       nonce,
       _gasPrice,
-      _gasLimit,
+      1,
       _refundToken,
       _refundAddress,
     );
@@ -105,6 +104,8 @@ class TestManager {
       _refundAddress,
       { gasPrice: _gasPrice },
     );
+    console.log("method", _method);
+    console.log("gasEstimate", gasEstimate.toString());
     //  return gasUsed;
     // }
     const tx = await this.relayerModule.from(_relayer).execute(
@@ -117,12 +118,10 @@ class TestManager {
       _gasLimit,
       _refundToken,
       _refundAddress,
-      { gasLimit: _gasLimitRelay, gasPrice: _gasPrice },
+      { gasLimit: gasEstimate, gasPrice: _gasPrice },
     );
     const txReceipt = await _module.verboseWaitForTransaction(tx);
 
-    console.log("method", _method);
-    console.log("gasEstimate", gasEstimate.toString());
     console.log("gasUsed    ", txReceipt.gasUsed.toString());
     return txReceipt;
   }
