@@ -301,12 +301,12 @@ describe("Token Exchanger", function () {
   }
 
   function testsForMethod(method) {
-    it("trades ETH to ERC20 (blockchain tx)", async () => {
+    it.only("trades ETH to ERC20 (blockchain tx)", async () => {
       await testTrade({
         method, fromToken: ETH_TOKEN, toToken: tokenA.contractAddress, relayed: false,
       });
     });
-    it("trades ETH to ERC20 (relayed tx)", async () => {
+    it.only("trades ETH to ERC20 (relayed tx)", async () => {
       await testTrade({
         method, fromToken: ETH_TOKEN, toToken: tokenA.contractAddress, relayed: true,
       });
@@ -316,7 +316,7 @@ describe("Token Exchanger", function () {
         method, fromToken: tokenA.contractAddress, toToken: ETH_TOKEN, relayed: false,
       });
     });
-    it("trades ERC20 to ETH (relayed tx)", async () => {
+    it.only("trades ERC20 to ETH (relayed tx)", async () => {
       await testTrade({
         method, fromToken: tokenA.contractAddress, toToken: ETH_TOKEN, relayed: true,
       });
@@ -326,7 +326,7 @@ describe("Token Exchanger", function () {
         method, fromToken: tokenA.contractAddress, toToken: tokenB.contractAddress, relayed: false,
       });
     });
-    it("trades ERC20 to ERC20 (relayed tx)", async () => {
+    it.only("trades ERC20 to ERC20 (relayed tx)", async () => {
       await testTrade({
         method, fromToken: tokenA.contractAddress, toToken: tokenB.contractAddress, relayed: true,
       });
