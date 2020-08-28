@@ -211,7 +211,7 @@ contract("BaseWallet", (accounts) => {
       await module1.upgradeWallet(oldWallet.address, await module1.lastVersion(), { from: owner });
       await feature1.callDapp(oldWallet.address);
       await feature1.callDapp2(oldWallet.address, 2, false);
-      await assert.revert(feature1.fail(oldWallet.address, "just because"));
+      await assertRevert(feature1.fail(oldWallet.address, "just because"));
     });
   });
 
@@ -222,7 +222,7 @@ contract("BaseWallet", (accounts) => {
       await module1.upgradeWallet(oldWallet.address, await module1.lastVersion(), { from: owner });
       await feature1.callDapp(oldWallet.address);
       await feature1.callDapp2(oldWallet.address, 2, true);
-      await assert.revert(feature1.fail(oldWallet.address, "just because"));
+      await assertRevert(feature1.fail(oldWallet.address, "just because"));
     });
   });
 });
