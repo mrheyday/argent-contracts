@@ -288,7 +288,7 @@ contract("TransferManager", (accounts) => {
       await previousTransferManager.addModule(existingWallet.address, versionManager.address, { from: owner });
       const tx = await versionManager.upgradeWallet(existingWallet.address, await versionManager.lastVersion(), { from: owner });
       const txReceipt = tx.receipt;
-      assert.isTrue(hasEvent(txReceipt, transferManager, "DailyLimitMigrated"));
+      utils.hasEvent(txReceipt, "DailyLimitMigrated");
       // check result
       limit = await transferManager.getCurrentLimit(existingWallet.address);
       assert.equal(limit.toNumber(), 4000000, "limit should have been migrated");
@@ -336,7 +336,7 @@ contract("TransferManager", (accounts) => {
     it("should be able to disable the limit", async () => {
       const tx = await transferManager.disableLimit(wallet.address, { from: owner });
       const txReceipt = tx.receipt;
-      assert.isTrue(hasEvent(txReceipt, transferManager, "DailyLimitDisabled"));
+      utils.hasEvent(txReceipt, "DailyLimitDisabled");
       let limitDisabled = await transferManager.isLimitDisabled(wallet.address);
       assert.isFalse(limitDisabled);
       await increaseTime(SECURITY_PERIOD + 1);
