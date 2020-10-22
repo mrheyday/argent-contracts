@@ -1,5 +1,6 @@
 /* global artifacts */
 const ethers = require("ethers");
+
 const GuardianManager = artifacts.require("GuardianManager");
 const LockStorage = artifacts.require("LockStorage");
 const GuardianStorage = artifacts.require("GuardianStorage");
@@ -14,7 +15,6 @@ const { assertRevert } = require("../utils/utilities.js");
 const RelayManager = require("../utils/relay-manager");
 
 contract("VersionManager", (accounts) => {
-
   const manager = new RelayManager(accounts);
   const owner = accounts[1];
 
